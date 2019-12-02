@@ -1,25 +1,20 @@
 var express = require('express');
 var router = express.Router();
+const SnackModel = require('../models/snack.model')
+const SnackController = require('../controllers/snack.controller')
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/snack', (req, res, next) => {
-  res.render('index', {title: 'snack time'})
-})
+router.get('/snack', SnackController.retrieveSnacks)
 
-router.post('/snack/favorite', favoriteSnackController)
 
-function favoriteSnackController(req, res, next) {
-  if(req.body.snack == 'pudding') {
-    return res.json({question: 'What flavor'})
-  } else if(req.body.snack ===  'popcorn') {
-    return res.json({question: 'chedda?'})
-  } else {
-    return res.json({comment: 'Thats not a real snack'})
-  }
-}
+router.post('/snack/favorite', SnackController.favoriteSnackController)
+router.post('/snack/new', SnackController.createNewSnack)
+
 
 module.exports = router;
+ 
