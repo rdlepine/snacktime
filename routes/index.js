@@ -9,10 +9,9 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/snack', SnackController.retrieveSnacks)
+router.get('/snack', SnackController.getAllSnacks)
+router.get('/snack/type/:snackType', SnackController.getSnackByType)
 
-
-router.post('/snack/favorite', SnackController.favoriteSnackController)
 router.post('/snack/new', SnackController.createNewSnack)
 
 

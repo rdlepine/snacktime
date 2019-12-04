@@ -14,7 +14,7 @@ SnackController.favoriteSnackController = (req, res, next) => {
   }
   
   SnackController.createNewSnack  = (req, res, next) =>  {
-    SnackModel.Insert().then( result => {
+    SnackModel.createNewSnack().then( result => {
         return res.json(result)
     }).catch( (err) => {
         return res.json(err)
@@ -22,14 +22,22 @@ SnackController.favoriteSnackController = (req, res, next) => {
   }
 
   //Retrieve 
-  SnackController.retrieveSnacks = (req, res, next) => {
-      return SnackModel.query().then( (result => {
+  SnackController.getAllSnacks = (req, res, next) => {
+      return SnackModel.getAll().then( (result => {
           return SnackModel.query().then( (result) => {
               return res.json(result)
           })
       })).catch( (err) => {
           return res.json(er)
       })
+  }
+
+  SnackController.getSnackByType = (req, res, next) => {
+    const snackType = req.params.snackType
+    return SnackModel.getByType({snack: snackType}).then( result =>  {
+    
+      res.json(result)
+    }).catch( err => res.json(err))
   }
   
 module.exports = SnackController
